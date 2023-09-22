@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="maseuko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon">-->
+    <script src="js/jszip.min.js" defer></script>
+    <script src="js/main.js" type="module" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>maseuko - Messenger Analyser</title>
+</head>
+<body>
+    <!-- ONLINE VERSION ONLY
+        <div class="backtohome">
+            <a href="..">&gt; back &lt;</a>&nbsp;
+            <a href="/">&gt; home &lt;</a>
+        </div><br>
+    -->
+    <h1>Messenger Analyser</h1>
+    <div class="tabs">
+        <button id="tab_upload_btn">File and filters</button>
+        <button id="tab_msgper_btn">Messages count per week</button>
+        <button id="tab_msgtot_btn">Total messages count</button>
+        <button id="tab_wordstot_btn">Words count</button>
+    </div>
+    <div id="tab_upload" class="tab">
+        <h2>Basic usage:</h3>
+        <p>
+            1. Visit <a href="https://www.facebook.com/dyi/">this page</a><br>
+            2. Request a download of your Facebook information. Make sure to select personalized copy instead of complete one, select only "Messages" and make sure the format is JSON (not HTML)<br>
+            3. Wait until your download is ready<br>
+            4. Only the last part of your copy is nessesary (if there are more), download it<br>
+            5. If your file is bigger than 1GB, your browser may refuse to process it. In that case, use <a href="./messenger-shrinker.py" download>this script</a> to shrink it<br>
+            6. Go back to this page and upload your .zip file below (any informations you submit here are stored only on your computer, the script won't send any data about you to the server)<br>
+            7. Click "OK"<br>
+            8. Wait until the status says: "ready!"<br>
+            9. Select threads of your interest or leave it as it is to display only top 20 of your threads (recomended)<br>
+            10. Go to the "Messages count per week" tab<br>
+            <br>
+            Graphs will be generated showing how many messages were send in each selected thread per week and in total.<br>
+            Now you can move your cursor along the graph to show more info in the table below or just play with the site to discover more about your Facebook messaging! Have fun!<br>
+            <br>
+            &copy; 2023 maseuko. GPL-3.0 License
+        </p>
+        <hr>
+        <h2>Select a file</h3>
+        <input type="file" id="zipFile" accept=".zip"><button id="zipFileSend">OK</button><br>
+        Status: <span id="status">please select your .zip file and click "OK"</span><br><br>
+        <hr>
+        <h2>Filters</h2>
+        <input type="radio" name="filter_r" id="filter_r_all">
+        <label for="filter_r_all">All threads</label>
+        <input type="radio" name="filter_r" id="filter_r_ng">
+        <label for="filter_r_all">All threads (no groups)</label>
+        <input type="radio" name="filter_r" id="filter_r_top" checked>
+        <label for="filter_r_top">Only top 20 (no groups)</label>
+        <input type="radio" name="filter_r" id="filter_r_sel">
+        <label for="filter_r_sel">Only selected</label><br>
+        <table>
+            <tr>
+                <td><select id="filter_s" multiple></select></td>
+                <td>
+                    <form id="filter_s_form">
+                        <label for="filter_s_byname">Select by name: </label>
+                        <input type="text" id="filter_s_byname">
+                        <input type="submit" id="filter_s_selbyname" value="Select"><br>
+                        Selected threads: <span id="filter_s_count">0/0</span><br>
+                        <button id="filter_s_deselect">Deselect all</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="tab_msgper" class="tab">
+        <h2>Messages count per week</h2>
+        <button id="recolor">Change colors</button><br><br>
+        Messages per day:<br>
+        <canvas id="msgpercanv" class="graph"></canvas><br>
+        Messages total:<br>
+        <canvas id="msgtotalcanv" class="graph"></canvas><br>
+        <div id="msgperinfo"></div>
+    </div>
+    <div id="tab_msgtot" class="tab">
+        <h2>Total messages count</h2>
+        <div id="msgtotinfo"></div>
+    </div>
+    <div id="tab_wordstot" class="tab">
+        <h2>Total words count</h2>
+        WORK IN PROGRESS!<br>
+    </div>
+</body>
+</html>

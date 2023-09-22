@@ -1,0 +1,81 @@
+.graph {
+    border: 1px solid white;
+    width: 100%;
+    height: 300px;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: monospace;
+}
+
+a {
+    color: white;
+}
+
+#msgperinfo {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#filter_s {
+    height: 300px;
+}
+
+#msgtotinfo td,
+#msgtotinfo th,
+#msgperinfo td,
+#msgperinfo th {
+    border: 1px solid white;
+    padding: 3px;
+}
+
+#msgtotinfo tr:hover,
+#msgperinfo tr:hover {
+    background-color: #333;
+}
+
+.backtohome {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+input[type="submit"],
+input[type="file"]::-webkit-file-upload-button,
+select,
+button,
+input[type="text"] {
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    padding: 3px 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.tabs > button {
+    margin-bottom: -2px;
+    border-bottom: none;
+}
+
+.tabs > button.activeTabBtn {
+    margin-bottom: -2px;
+    padding-bottom: 5px;
+}
+
+.tab {
+    min-width: 200px;
+    border: 2px solid white;
+    padding: 8px;
+    display: none;
+}
+
+.activeTab {
+    display: block;
+}
