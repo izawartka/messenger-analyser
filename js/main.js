@@ -24,7 +24,15 @@ tabs.addTabEvent('msgtot', () => {
 
     analyser.applyFilters();
     analyser.messagesTotal.draw();
-})
+});
+
+tabs.addTabEvent('wordstot', () => {
+    if(!analyser) return;
+    if(!analyser.threadsReady) return;
+
+    analyser.applyFilters();
+    analyser.wordsTotal.draw();
+});
 
 const elementsIDs = [
     'zipFile',
@@ -37,14 +45,17 @@ const elementsIDs = [
     'filter_r_top',
     'filter_r_ng',
     'filter_r_all',
+    'filter_r_form',
     'filter_s',
     'filter_s_byname',
     'filter_s_selbyname',
-    'filter_s_deselect',
     'filter_s_count',
     'filter_s_form',
     'recolor',
     'msgtotinfo',
+    'wordstotinfo',
+    'wordstotinfo_up',
+    'wordstotinfo_down',
 ];
 
 let elements = {};
@@ -81,13 +92,12 @@ elements.filter_s_form.onsubmit = (e) => {
 
     let options = Array.from(elements.filter_s.options);
     options.forEach(option => {
-        option.style.display = '';
         if(option.innerHTML.includes(elements.filter_s_byname.value)) {
             option.selected = true;
         }
     });
 
-    analyser.updateSelectedThreadsCount(true);
+    analyser.onFiltersChange();
 }
 
 elements.filter_s_byname.oninput = (e) => {
@@ -106,23 +116,27 @@ elements.filter_s_byname.oninput = (e) => {
     });
 }
 
-elements.filter_s_deselect.onclick = (e) => {
-    if(!analyser) return;
-    if(!analyser.threadsReady) return;
-
-    Array.from(elements.filter_s.selectedOptions).forEach(option => {
-        option.selected = false;
-    });
-
-    analyser.updateSelectedThreadsCount(true);
-}
-
 elements.filter_s.onchange = (e) => {
     if(!analyser) return;
     if(!analyser.threadsReady) return;
 
-    analyser.updateSelectedThreadsCount(true);
+    elements.filter_r_sel.checked = true;
+
+    analyser.onFiltersChange();
 }
+
+elements.filter_r_form.onsubmit = (e) => {
+    e.preventDefault();
+}
+
+elements.filter_r_form.filter_r.forEach((radio) => {
+    radio.onchange = (e) => {
+        if(!analyser) return;
+        if(!analyser.threadsReady) return;
+
+        analyser.onFiltersChange();
+    }
+});
 
 elements.recolor.onclick = (e) => {
     if(!analyser) return;

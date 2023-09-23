@@ -50,14 +50,16 @@
         Status: <span id="status">please select your .zip file and click "OK"</span><br><br>
         <hr>
         <h2>Filters</h2>
-        <input type="radio" name="filter_r" id="filter_r_all">
-        <label for="filter_r_all">All threads</label>
-        <input type="radio" name="filter_r" id="filter_r_ng">
-        <label for="filter_r_all">All threads (no groups)</label>
-        <input type="radio" name="filter_r" id="filter_r_top" checked>
-        <label for="filter_r_top">Only top 20 (no groups)</label>
-        <input type="radio" name="filter_r" id="filter_r_sel">
-        <label for="filter_r_sel">Only selected</label><br>
+        <form id="filter_r_form">
+            <input type="radio" name="filter_r" id="filter_r_all">
+            <label for="filter_r_all">All threads</label>
+            <input type="radio" name="filter_r" id="filter_r_ng">
+            <label for="filter_r_ng">All threads (no groups)</label>
+            <input type="radio" name="filter_r" id="filter_r_top" checked>
+            <label for="filter_r_top">Only top 20 (no groups)</label>
+            <input type="radio" name="filter_r" id="filter_r_sel">
+            <label for="filter_r_sel">Only selected</label><br>
+        </form>
         <table>
             <tr>
                 <td><select id="filter_s" multiple></select></td>
@@ -67,7 +69,6 @@
                         <input type="text" id="filter_s_byname">
                         <input type="submit" id="filter_s_selbyname" value="Select"><br>
                         Selected threads: <span id="filter_s_count">0/0</span><br>
-                        <button id="filter_s_deselect">Deselect all</button>
                     </form>
                 </td>
             </tr>
@@ -80,15 +81,55 @@
         <canvas id="msgpercanv" class="graph"></canvas><br>
         Messages total:<br>
         <canvas id="msgtotalcanv" class="graph"></canvas><br>
-        <div id="msgperinfo"></div>
+        <div id="msgperinfo" class="visibletable"></div>
     </div>
     <div id="tab_msgtot" class="tab">
         <h2>Total messages count</h2>
-        <div id="msgtotinfo"></div>
+        <div class="scrollcont">
+            <table class="visibletable">
+                <tr class="tablestaticheader">
+                    <th rowspan="2">Title</th>
+                    <th colspan="5">Messages count</th>
+                    <th rowspan="2"> </th>
+                    <th colspan="5">Characters count</th>
+                </tr>
+                <tr>
+                    <th>Outcoming</th>
+                    <th></th>
+                    <th>Incoming</th>
+                    <th>Total</th>
+                    <th>% of all</th>
+                    <th>Outcoming</th>
+                    <th></th>
+                    <th>Incoming</th>
+                    <th>Total</th>
+                    <th>% of all</th>
+                </tr>
+                <tbody id="msgtotinfo"></tbody>
+            </table>
+        </div>
     </div>
     <div id="tab_wordstot" class="tab">
         <h2>Total words count</h2>
-        WORK IN PROGRESS!<br>
+        <div class="scrollcont">
+            <table class="visibletable">
+                <tr class="tablestaticheader">
+                    <th>Word</th>
+                    <th>Total</th>
+                    <th>Outcoming</th>
+                    <th>Incoming</th>
+                    <th>O/I ratio</th>
+                    <th>Total ‰</th>
+                </tr>
+                <tr>
+                    <td colspan="6" id="wordstotinfo_up" class="graytdbutton">&#9650; PREVIOUS PAGE &#9650;</td>
+                </tr>
+                <tbody id="wordstotinfo"></tbody>
+                <tr>
+                    <td colspan="6" id="wordstotinfo_down" class="graytdbutton">&#9660; NEXT PAGE &#9660;</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>

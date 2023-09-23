@@ -25,7 +25,6 @@ export class MessagesPer {
         if(Object.keys(this.threadColor).length == 0) 
             this.changeColors();
 
-        this.analyser.status = 'counting messages per week';
         this.messagesPerImgReady = false;
         this.startSector = Math.floor(this.analyser.messagingStart / MSGPER_MULTIPLIER);
         this.endSector = Math.floor(this.analyser.messagingEnd / MSGPER_MULTIPLIER);
@@ -70,23 +69,10 @@ export class MessagesPer {
             lastTotal = nowTotal;
         }
         
-        this.analyser.status = 'drawing graphs...';
-        
         // draw graphs
         this.drawMessagesPer();
         this.drawMessagesTotal();
-
-        let that = this;
-        waitForRead();
-        function waitForRead(){
-            if(that.messagesTotalPerImage.complete && that.messagesPerImage.complete){
-                that.messagesPerImgReady = true;
-                that.status = "graphs ready!";
-            }
-            else{
-                setTimeout(waitForRead, 100);
-            }
-        }
+        that.messagesPerImgReady = true;
     }
 
     drawMessagesPer() {

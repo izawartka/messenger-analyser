@@ -1,5 +1,6 @@
 import { MessagesPer } from './msgper.js';
 import { MessagesTotal } from './msgtotal.js';
+import { WordsTotal } from './wordstotal.js';
 
 export class Analyser {
     constructor(zipFile, elements) {
@@ -14,8 +15,10 @@ export class Analyser {
         this.topThreads = [];
         this.messagesPer = new MessagesPer(this);
         this.messagesTotal = new MessagesTotal(this);
+        this.wordsTotal = new WordsTotal(this);
         this.info;
         this.infoReady = false;
+        this.filtersChanged = true;
 
         this.status = "reading zip file...";
         var jszip = new JSZip();
@@ -27,6 +30,14 @@ export class Analyser {
                 this.status = "invalid zip file! Couldn't read";
                 throw e;
             });
+    }
+
+    onFiltersChange() {
+        this.messagesTotal.filtersChanged = true;
+        this.wordsTotal.filtersChanged = true;
+        this.filtersChanged = true;
+
+        this.updateSelectedThreadsCount();
     }
 
     readInfoFile(zipContent) {
@@ -111,6 +122,7 @@ export class Analyser {
     }
 
     applyFilters() {
+        if(!this.filtersChanged) return;
         this.threadsReady = false;
 
         this.filteredMessages = {};
@@ -122,6 +134,7 @@ export class Analyser {
         }
 
         this.threadsReady = true;
+        this.filtersChanged = false;
     }
 
     updateSelectedThreadsCount(selectRadio = false) {
