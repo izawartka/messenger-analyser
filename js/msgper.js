@@ -22,6 +22,7 @@ export class MessagesPer {
     }
 
     draw() {
+        if(!this.analyser.threadsReady) return;
         if(Object.keys(this.threadColor).length == 0) 
             this.changeColors();
 
@@ -72,7 +73,7 @@ export class MessagesPer {
         // draw graphs
         this.drawMessagesPer();
         this.drawMessagesTotal();
-        that.messagesPerImgReady = true;
+        this.messagesPerImgReady = true;
     }
 
     drawMessagesPer() {
